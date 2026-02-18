@@ -1,0 +1,47 @@
+/* App-level overrides and enhancements */
+
+/* Ensure smooth 3D canvas rendering */
+canvas {
+    display: block;
+}
+
+/* Section divider lines */
+#about,
+#skills,
+#projects,
+#contact {
+    position: relative;
+}
+
+#about::before,
+#skills::before,
+#projects::before,
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(80%, 600px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
+}
+
+/* Subtle background pattern */
+main {
+    position: relative;
+}
+
+main::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(0, 240, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
