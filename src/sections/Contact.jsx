@@ -4,12 +4,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// ⬇️ PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️
+const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'
+
 export default function Contact() {
     const sectionRef = useRef()
     const formRef = useRef()
     const infoRef = useRef()
     const [formData, setFormData] = useState({ name: '', email: '', message: '' })
     const [submitted, setSubmitted] = useState(false)
+    const [sending, setSending] = useState(false)
+    const [error, setError] = useState(false)
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -58,11 +63,35 @@ export default function Contact() {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitted(true)
-        setTimeout(() => setSubmitted(false), 3000)
-        setFormData({ name: '', email: '', message: '' })
+        setSending(true)
+        setError(false)
+
+        try {
+            const form = new FormData()
+            form.append('name', formData.name)
+            form.append('email', formData.email)
+            form.append('message', formData.message)
+
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: form,
+            })
+
+            // With no-cors the response is opaque, but if fetch didn't throw
+            // that means the request was sent successfully
+            setSubmitted(true)
+            setFormData({ name: '', email: '', message: '' })
+            setTimeout(() => setSubmitted(false), 3000)
+        } catch (err) {
+            console.error('Form submission failed:', err)
+            setError(true)
+            setTimeout(() => setError(false), 3000)
+        } finally {
+            setSending(false)
+        }
     }
 
     return (
@@ -165,8 +194,8 @@ export default function Contact() {
                                 required
                             ></textarea>
                         </div>
-                        <button type="submit" className="btn btn-primary form-submit">
-                            {submitted ? '✅ Message Sent!' : '🚀 Send Message'}
+                        <button type="submit" className="btn btn-primary form-submit" disabled={sending}>
+                            {sending ? '⏳ Sending...' : submitted ? '✅ Message Sent!' : error ? '❌ Failed, try again' : '🚀 Send Message'}
                         </button>
                     </form>
                 </div>
