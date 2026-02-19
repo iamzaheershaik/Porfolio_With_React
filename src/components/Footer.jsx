@@ -6,9 +6,9 @@ export default function Footer() {
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-links">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
-                        <a href="mailto:zaheer@example.com" className="footer-link">Email</a>
+                        <a href="https://github.com/iamzaheershaik" target="_blank" rel="noopener noreferrer" className="footer-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/iamzaheershaik" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
+                        <a href="https://mail.google.com/mail/?view=cm&to=zaheershaik0323@gmail.com" target="_blank" rel="noopener noreferrer" className="footer-link">Email</a>
                     </div>
                     <p className="footer-text">
                         © {currentYear} <span className="highlight">Shaik Mohammed Zaheer</span>. Crafted with passion & code.

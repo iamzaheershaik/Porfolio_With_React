@@ -65,7 +65,7 @@ export default function Hero() {
                     </h1>
 
                     <p className="hero-title" ref={titleRef}>
-                        Frontend Developer — Building <em>beautiful</em> & <em>interactive</em> web experiences
+                        Full Stack Developer — Building <em>beautiful</em> & <em>interactive</em> web experiences
                     </p>
 
                     <p className="hero-description" ref={descRef}>
@@ -81,6 +81,14 @@ export default function Hero() {
                         <button className="btn btn-outline" onClick={() => scrollTo('contact')}>
                             <span>📬</span> Contact Me
                         </button>
+                        <a
+                            className="btn btn-resume"
+                            href="/resume.pdf"
+                            download="Shaik_Mohammed_Zaheer_Resume.pdf"
+                            title="Download Resume"
+                        >
+                            <span>📄</span> Download Resume
+                        </a>
                     </div>
                 </div>
             </div>

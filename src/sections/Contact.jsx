@@ -82,7 +82,19 @@ export default function Contact() {
                             <div className="contact-info-icon">📧</div>
                             <div>
                                 <div className="contact-info-label">Email</div>
-                                <div className="contact-info-value">zaheer@example.com</div>
+                                <div className="contact-info-value">
+                                    <a href="https://mail.google.com/mail/?view=cm&to=zaheershaik0323@gmail.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>zaheershaik0323@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="contact-info-item">
+                            <div className="contact-info-icon">📱</div>
+                            <div>
+                                <div className="contact-info-label">Phone</div>
+                                <div className="contact-info-value">
+                                    <a href="tel:+919390056219" style={{ color: 'inherit', textDecoration: 'none' }}>+91 9390056219</a>
+                                </div>
                             </div>
                         </div>
 
@@ -90,7 +102,7 @@ export default function Contact() {
                             <div className="contact-info-icon">📍</div>
                             <div>
                                 <div className="contact-info-label">Location</div>
-                                <div className="contact-info-value">India</div>
+                                <div className="contact-info-value">Surat, Gujarat</div>
                             </div>
                         </div>
 
@@ -105,16 +117,16 @@ export default function Contact() {
                         </div>
 
                         <div className="contact-socials">
-                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-link" title="GitHub">
+                            <a href="https://github.com/iamzaheershaik" target="_blank" rel="noopener noreferrer" className="social-link" title="GitHub">
                                 🐙
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn">
+                            <a href="https://www.linkedin.com/in/iamzaheershaik" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn">
                                 💼
                             </a>
                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-link" title="Twitter">
                                 🐦
                             </a>
-                            <a href="mailto:zaheer@example.com" className="social-link" title="Email">
+                            <a href="https://mail.google.com/mail/?view=cm&to=zaheershaik0323@gmail.com" target="_blank" rel="noopener noreferrer" className="social-link" title="Email">
                                 ✉️
                             </a>
                         </div>
