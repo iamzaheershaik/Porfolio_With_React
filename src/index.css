@@ -558,6 +558,96 @@ button {
   background-clip: text;
 }
 
+.about-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--border-glass);
+}
+
+/* ── Flip Card ────────────────────────── */
+
+.about-flip-card {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.about-flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: floatCard 4s ease-in-out infinite;
+}
+
+.about-flip-card:hover .about-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.about-flip-front,
+.about-flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.about-flip-front {
+  z-index: 2;
+}
+
+.about-flip-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  border: 2px solid var(--border-glass);
+  box-shadow: inset 0 0 60px rgba(0, 240, 255, 0.05);
+}
+
+.about-flip-name {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.about-flip-name.accent {
+  font-size: 2.8rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.4));
+}
+
+@keyframes floatCard {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.about-flip-card:hover .about-flip-inner {
+  animation: none;
+  transform: rotateY(180deg);
+}
+
 .about-decorator {
   position: absolute;
   width: 120px;
@@ -614,6 +704,62 @@ button {
    SKILLS SECTION
    ============================================ */
 
+.skills-category-heading {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--accent-cyan);
+  letter-spacing: 1px;
+}
+
+.skills-icon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+}
+
+.skill-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: default;
+}
+
+.skill-icon-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--skill-accent, var(--text-primary));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-icon-item:hover .skill-icon-circle {
+  border-color: var(--skill-accent, var(--accent-cyan));
+  box-shadow: 0 0 20px color-mix(in srgb, var(--skill-accent, var(--accent-cyan)) 40%, transparent);
+  transform: translateY(-4px) scale(1.1);
+  background: color-mix(in srgb, var(--skill-accent, var(--accent-cyan)) 10%, transparent);
+}
+
+.skill-icon-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.skill-icon-item:hover .skill-icon-label {
+  color: var(--text-primary);
+}
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -652,7 +798,7 @@ button {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.1), transparent 80%);
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1), transparent 80%);
   opacity: 0;
   pointer-events: none;
 }
@@ -921,6 +1067,40 @@ button {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
+}
+
+.contact-location-item {
+  position: relative;
+}
+
+.contact-location-item:hover .contact-info-value {
+  color: var(--accent-cyan);
+}
+
+.location-map-popup {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: 360px;
+  height: 240px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated), var(--shadow-glow-cyan);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.contact-location-item:hover .location-map-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
 }
 
 .contact-info-icon {

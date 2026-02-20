@@ -9,7 +9,7 @@ export default function Navbar() {
         { id: 'home', label: 'Home' },
         { id: 'about', label: 'About' },
         { id: 'skills', label: 'Skills' },
-        { id: 'projects', label: 'Projects' },
+        { id: 'github-activity', label: 'Open Source' },
         { id: 'contact', label: 'Contact' },
     ]
 

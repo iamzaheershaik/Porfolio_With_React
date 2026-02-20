@@ -5,7 +5,7 @@ import Footer from './components/Footer'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Skills from './sections/Skills'
-import Projects from './sections/Projects'
+import GithubActivity from './sections/GithubActivity'
 import Contact from './sections/Contact'
 import './App.css'
 
@@ -31,7 +31,7 @@ function App() {
     return (
         <>
             {/* Leva dev controls panel */}
-            <Leva collapsed hidden={false} />
+            <Leva collapsed hidden />
 
             {/* Cursor glow effect */}
             <CursorGlow />
@@ -44,7 +44,8 @@ function App() {
                 <Hero />
                 <About />
                 <Skills />
-                <Projects />
+                <GithubActivity />
+
                 <Contact />
             </main>
 

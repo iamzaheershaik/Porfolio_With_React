@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, lazy, Suspense } from 'react'
 import gsap from 'gsap'
-import Scene from '../components/Scene'
+
+const Scene = lazy(() => import('../components/Scene'))
 
 export default function Hero() {
     const contentRef = useRef()
@@ -49,7 +50,9 @@ export default function Hero() {
     return (
         <section className="hero" id="home">
             <div className="hero-canvas">
-                <Scene />
+                <Suspense fallback={null}>
+                    <Scene />
+                </Suspense>
             </div>
 
             <div className="container">

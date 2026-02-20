@@ -1,90 +1,50 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Code, JavascriptOutlined, HtmlOutlined, Palette, CheckCircle, Storage, Workspaces, CallMade, GitHub } from '@mui/icons-material'
+import {
+    ReactIcon, JavaScriptIcon, HTML5Icon, CSS3Icon, BootstrapIcon,
+    NodeIcon, ExpressIcon, MongoDBIcon,
+    GitIcon, GitHubIcon, LinuxIcon, VSCodeIcon,
+} from '../components/Icons'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const skills = [
+const skillCategories = [
     {
-        name: 'React',
-        level: 90,
-        Icon: Code,
-        color: 'linear-gradient(135deg, #61dafb, #00b4d8)',
-        category: 'Frontend'
+        category: 'Frontend',
+        skills: [
+            { name: 'React', Icon: ReactIcon, color: '#61dafb' },
+            { name: 'JavaScript', Icon: JavaScriptIcon, color: '#f7df1e' },
+            { name: 'HTML5', Icon: HTML5Icon, color: '#e34c26' },
+            { name: 'CSS3', Icon: CSS3Icon, color: '#264de4' },
+            { name: 'Bootstrap', Icon: BootstrapIcon, color: '#7952b3' },
+        ]
     },
     {
-        name: 'JavaScript',
-        level: 92,
-        Icon: JavascriptOutlined,
-        color: 'linear-gradient(135deg, #f7df1e, #f0c000)',
-        category: 'Frontend'
+        category: 'Backend',
+        skills: [
+            { name: 'Node.js', Icon: NodeIcon, color: '#339933' },
+            { name: 'Express.js', Icon: ExpressIcon, color: '#888888' },
+            { name: 'MongoDB', Icon: MongoDBIcon, color: '#47a248' },
+        ]
     },
     {
-        name: 'HTML5',
-        level: 95,
-        Icon: HtmlOutlined,
-        color: 'linear-gradient(135deg, #e34c26, #f06529)',
-        category: 'Frontend'
-    },
-    {
-        name: 'CSS3',
-        level: 93,
-        Icon: Palette,
-        color: 'linear-gradient(135deg, #264de4, #2965f1)',
-        category: 'Frontend'
-    },
-    {
-        name: 'Bootstrap',
-        level: 88,
-        Icon: CheckCircle,
-        color: 'linear-gradient(135deg, #7952b3, #a855f7)',
-        category: 'Framework'
-    },
-    {
-        name: 'Node.js',
-        level: 82,
-        Icon: Workspaces,
-        color: 'linear-gradient(135deg, #339933, #68a063)',
-        category: 'Backend'
-    },
-    {
-        name: 'Express.js',
-        level: 80,
-        Icon: CallMade,
-        color: 'linear-gradient(135deg, #444444, #888888)',
-        category: 'Backend'
-    },
-    {
-        name: 'MongoDB',
-        level: 78,
-        Icon: Storage,
-        color: 'linear-gradient(135deg, #47a248, #13aa52)',
-        category: 'Database'
-    },
-    {
-        name: 'TypeScript',
-        level: 85,
-        Icon: Code,
-        color: 'linear-gradient(135deg, #3178c6, #235a97)',
-        category: 'Frontend'
-    },
-    {
-        name: 'GitHub',
-        level: 87,
-        Icon: GitHub,
-        color: 'linear-gradient(135deg, #6e5494, #a855f7)',
-        category: 'Tools'
+        category: 'Tools',
+        skills: [
+            { name: 'Git', Icon: GitIcon, color: '#f05032' },
+            { name: 'GitHub', Icon: GitHubIcon, color: '#a855f7' },
+            { name: 'Linux', Icon: LinuxIcon, color: '#fcc624' },
+            { name: 'VS Code', Icon: VSCodeIcon, color: '#007acc' },
+        ]
     },
 ]
 
 export default function Skills() {
     const sectionRef = useRef()
-    const cardsRef = useRef()
+    const gridRefs = useRef([])
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Animate section header
             gsap.fromTo(
                 sectionRef.current.querySelectorAll('.section-label, .section-title, .section-subtitle'),
                 { opacity: 0, y: 30 },
@@ -98,25 +58,34 @@ export default function Skills() {
                 }
             )
 
-            // Animate cards
-            const cards = cardsRef.current.children
-            gsap.fromTo(cards,
-                { opacity: 0, y: 50, scale: 0.9 },
-                {
-                    opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.12, ease: 'back.out(1.7)',
-                    scrollTrigger: {
-                        trigger: cardsRef.current,
-                        start: 'top 80%',
-                        toggleActions: 'play none none reverse',
-                    },
-                    onComplete: () => {
-                        // Animate the skill bars after cards appear
-                        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
-                            bar.classList.add('animated')
-                        })
-                    }
+            gridRefs.current.forEach((gridEl) => {
+                if (!gridEl) return
+                const heading = gridEl.previousElementSibling
+                if (heading) {
+                    gsap.fromTo(heading,
+                        { opacity: 0, x: -30 },
+                        {
+                            opacity: 1, x: 0, duration: 0.6, ease: 'power3.out',
+                            scrollTrigger: {
+                                trigger: heading,
+                                start: 'top 85%',
+                                toggleActions: 'play none none reverse',
+                            }
+                        }
+                    )
                 }
-            )
+                gsap.fromTo(gridEl.children,
+                    { opacity: 0, y: 30, scale: 0.8 },
+                    {
+                        opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.7)',
+                        scrollTrigger: {
+                            trigger: gridEl,
+                            start: 'top 80%',
+                            toggleActions: 'play none none reverse',
+                        }
+                    }
+                )
+            })
         }, sectionRef)
 
         return () => ctx.revert()
@@ -133,33 +102,24 @@ export default function Skills() {
                     Technologies I work with to build modern, responsive, and performant web applications.
                 </p>
 
-                <div className="skills-grid" ref={cardsRef}>
-                    {skills.map((skill) => {
-                        const IconComponent = skill.Icon
-                        return (
-                            <div
-                                key={skill.name}
-                                className="skill-card glass-card"
-                                style={{ '--skill-color': skill.color }}
-                            >
-                                <div className="skill-icon-wrapper">
-                                    <div className="skill-icon">
-                                        <IconComponent />
+                {skillCategories.map((cat, catIdx) => (
+                    <div key={cat.category} style={{ marginTop: '3rem' }}>
+                        <h3 className="skills-category-heading">{cat.category}</h3>
+                        <div
+                            className="skills-icon-grid"
+                            ref={(el) => (gridRefs.current[catIdx] = el)}
+                        >
+                            {cat.skills.map((skill) => (
+                                <div key={skill.name} className="skill-icon-item">
+                                    <div className="skill-icon-circle" style={{ '--skill-accent': skill.color }}>
+                                        <skill.Icon />
                                     </div>
+                                    <span className="skill-icon-label">{skill.name}</span>
                                 </div>
-                                <div className="skill-name">{skill.name}</div>
-                                <div className="skill-category">{skill.category}</div>
-                                <div className="skill-bar-track">
-                                    <div
-                                        className="skill-bar-fill"
-                                        style={{ '--skill-level': `${skill.level}%` }}
-                                    ></div>
-                                </div>
-                                <div className="skill-level-text">{skill.level}%</div>
-                            </div>
-                        )
-                    })}
-                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
             </div>
         </section>
     )

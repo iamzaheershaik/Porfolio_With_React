@@ -128,20 +128,39 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        <div className="contact-info-item">
+
+                        <a
+                            href="https://www.google.com/maps/@21.2423391,72.8853639,21z"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="contact-info-item contact-location-item"
+                            style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer', position: 'relative' }}
+                        >
                             <div className="contact-info-icon">📍</div>
                             <div>
                                 <div className="contact-info-label">Location</div>
                                 <div className="contact-info-value">Surat, Gujarat</div>
                             </div>
-                        </div>
+                            <div className="location-map-popup">
+                                <iframe
+                                    title="My Location"
+                                    src="https://maps.google.com/maps?q=21.2423391,72.8853639&z=17&output=embed"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0, borderRadius: 'var(--radius-md)' }}
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                ></iframe>
+                            </div>
+                        </a>
 
                         <div className="contact-info-item">
                             <div className="contact-info-icon">💼</div>
                             <div>
                                 <div className="contact-info-label">Status</div>
                                 <div className="contact-info-value" style={{ color: 'var(--accent-green)' }}>
-                                    Available for freelance
+                                    Available for work · Anywhere in India
                                 </div>
                             </div>
                         </div>

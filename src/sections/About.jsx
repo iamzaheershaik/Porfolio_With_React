@@ -62,8 +62,17 @@ export default function About() {
 
                 <div className="about-grid">
                     <div className="about-image-wrapper" ref={imageRef}>
-                        <div className="about-image-container">
-                            <div className="about-avatar">Z</div>
+                        <div className="about-flip-card">
+                            <div className="about-flip-inner">
+                                <div className="about-flip-front">
+                                    <img src="/Profile.jpeg" alt="Shaik Mohammed Zaheer" className="about-avatar-img" />
+                                </div>
+                                <div className="about-flip-back">
+                                    <span className="about-flip-name">Shaik</span>
+                                    <span className="about-flip-name">Mohammed</span>
+                                    <span className="about-flip-name accent">Zaheer</span>
+                                </div>
+                            </div>
                         </div>
                         <div className="about-decorator"></div>
                     </div>
