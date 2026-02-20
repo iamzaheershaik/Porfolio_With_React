@@ -1,58 +1,90 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-// MUI Icons
-import CodeIcon from '@mui/icons-material/Code'
-import JavascriptIcon from '@mui/icons-material/Javascript'
-import HtmlIcon from '@mui/icons-material/Html'
-import CssIcon from '@mui/icons-material/Css'
-import ViewQuiltIcon from '@mui/icons-material/ViewQuilt'
-import DnsIcon from '@mui/icons-material/Dns'
-import ApiIcon from '@mui/icons-material/Api'
-import StorageIcon from '@mui/icons-material/Storage'
-import MergeIcon from '@mui/icons-material/MergeType'
-import GitHubIcon from '@mui/icons-material/GitHub'
+import { Code, JavascriptOutlined, HtmlOutlined, Palette, CheckCircle, Storage, Workspaces, CallMade, GitHub } from '@mui/icons-material'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const categories = [
+const skills = [
     {
-        title: 'Frontend',
-        icon: '🎨',
-        skills: [
-            { name: 'React', level: 90, Icon: CodeIcon, color: '#61dafb' },
-            { name: 'JavaScript', level: 92, Icon: JavascriptIcon, color: '#f7df1e' },
-            { name: 'HTML5', level: 95, Icon: HtmlIcon, color: '#f06529' },
-            { name: 'CSS3', level: 93, Icon: CssIcon, color: '#2965f1' },
-            { name: 'Bootstrap', level: 88, Icon: ViewQuiltIcon, color: '#7952b3' },
-        ],
+        name: 'React',
+        level: 90,
+        Icon: Code,
+        color: 'linear-gradient(135deg, #61dafb, #00b4d8)',
+        category: 'Frontend'
     },
     {
-        title: 'Backend',
-        icon: '⚙️',
-        skills: [
-            { name: 'Node.js', level: 82, Icon: DnsIcon, color: '#68a063' },
-            { name: 'Express.js', level: 80, Icon: ApiIcon, color: '#888888' },
-            { name: 'MongoDB', level: 78, Icon: StorageIcon, color: '#47a248' },
-        ],
+        name: 'JavaScript',
+        level: 92,
+        Icon: JavascriptOutlined,
+        color: 'linear-gradient(135deg, #f7df1e, #f0c000)',
+        category: 'Frontend'
     },
     {
-        title: 'Tools',
-        icon: '🔧',
-        skills: [
-            { name: 'Git', level: 85, Icon: MergeIcon, color: '#f05032' },
-            { name: 'GitHub', level: 87, Icon: GitHubIcon, color: '#a855f7' },
-        ],
+        name: 'HTML5',
+        level: 95,
+        Icon: HtmlOutlined,
+        color: 'linear-gradient(135deg, #e34c26, #f06529)',
+        category: 'Frontend'
+    },
+    {
+        name: 'CSS3',
+        level: 93,
+        Icon: Palette,
+        color: 'linear-gradient(135deg, #264de4, #2965f1)',
+        category: 'Frontend'
+    },
+    {
+        name: 'Bootstrap',
+        level: 88,
+        Icon: CheckCircle,
+        color: 'linear-gradient(135deg, #7952b3, #a855f7)',
+        category: 'Framework'
+    },
+    {
+        name: 'Node.js',
+        level: 82,
+        Icon: Workspaces,
+        color: 'linear-gradient(135deg, #339933, #68a063)',
+        category: 'Backend'
+    },
+    {
+        name: 'Express.js',
+        level: 80,
+        Icon: CallMade,
+        color: 'linear-gradient(135deg, #444444, #888888)',
+        category: 'Backend'
+    },
+    {
+        name: 'MongoDB',
+        level: 78,
+        Icon: Storage,
+        color: 'linear-gradient(135deg, #47a248, #13aa52)',
+        category: 'Database'
+    },
+    {
+        name: 'TypeScript',
+        level: 85,
+        Icon: Code,
+        color: 'linear-gradient(135deg, #3178c6, #235a97)',
+        category: 'Frontend'
+    },
+    {
+        name: 'GitHub',
+        level: 87,
+        Icon: GitHub,
+        color: 'linear-gradient(135deg, #6e5494, #a855f7)',
+        category: 'Tools'
     },
 ]
 
 export default function Skills() {
     const sectionRef = useRef()
-    const groupsRef = useRef()
+    const cardsRef = useRef()
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            // Animate section header
             gsap.fromTo(
                 sectionRef.current.querySelectorAll('.section-label, .section-title, .section-subtitle'),
                 { opacity: 0, y: 30 },
@@ -66,37 +98,25 @@ export default function Skills() {
                 }
             )
 
-            // Animate each category group
-            sectionRef.current.querySelectorAll('.skills-category').forEach((group) => {
-                gsap.fromTo(group,
-                    { opacity: 0, y: 40 },
-                    {
-                        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: group,
-                            start: 'top 85%',
-                            toggleActions: 'play none none reverse',
-                        },
+            // Animate cards
+            const cards = cardsRef.current.children
+            gsap.fromTo(cards,
+                { opacity: 0, y: 50, scale: 0.9 },
+                {
+                    opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.12, ease: 'back.out(1.7)',
+                    scrollTrigger: {
+                        trigger: cardsRef.current,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse',
+                    },
+                    onComplete: () => {
+                        // Animate the skill bars after cards appear
+                        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                            bar.classList.add('animated')
+                        })
                     }
-                )
-
-                gsap.fromTo(group.querySelectorAll('.skill-card'),
-                    { opacity: 0, x: -20 },
-                    {
-                        opacity: 1, x: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: group,
-                            start: 'top 80%',
-                            toggleActions: 'play none none reverse',
-                        },
-                        onComplete: () => {
-                            group.querySelectorAll('.skill-bar-fill').forEach(bar => {
-                                bar.classList.add('animated')
-                            })
-                        }
-                    }
-                )
-            })
+                }
+            )
         }, sectionRef)
 
         return () => ctx.revert()
@@ -113,43 +133,32 @@ export default function Skills() {
                     Technologies I work with to build modern, responsive, and performant web applications.
                 </p>
 
-                <div className="skills-categories" ref={groupsRef}>
-                    {categories.map((cat) => (
-                        <div key={cat.title} className="skills-category">
-                            <h3 className="skills-category-title">
-                                <span className="skills-category-icon">{cat.icon}</span>
-                                {cat.title}
-                            </h3>
-                            <div className="skills-grid">
-                                {cat.skills.map((skill) => (
-                                    <div
-                                        key={skill.name}
-                                        className="skill-card glass-card"
-                                        style={{ '--skill-accent': skill.color }}
-                                    >
-                                        <div className="skill-icon" style={{ color: skill.color }}>
-                                            <skill.Icon fontSize="inherit" />
-                                        </div>
-                                        <div className="skill-details">
-                                            <div className="skill-header">
-                                                <span className="skill-name">{skill.name}</span>
-                                                <span className="skill-level-text">{skill.level}%</span>
-                                            </div>
-                                            <div className="skill-bar-track">
-                                                <div
-                                                    className="skill-bar-fill"
-                                                    style={{
-                                                        '--skill-level': `${skill.level}%`,
-                                                        background: `linear-gradient(90deg, ${skill.color}, ${skill.color}88)`,
-                                                    }}
-                                                ></div>
-                                            </div>
-                                        </div>
+                <div className="skills-grid" ref={cardsRef}>
+                    {skills.map((skill) => {
+                        const IconComponent = skill.Icon
+                        return (
+                            <div
+                                key={skill.name}
+                                className="skill-card glass-card"
+                                style={{ '--skill-color': skill.color }}
+                            >
+                                <div className="skill-icon-wrapper">
+                                    <div className="skill-icon">
+                                        <IconComponent />
                                     </div>
-                                ))}
+                                </div>
+                                <div className="skill-name">{skill.name}</div>
+                                <div className="skill-category">{skill.category}</div>
+                                <div className="skill-bar-track">
+                                    <div
+                                        className="skill-bar-fill"
+                                        style={{ '--skill-level': `${skill.level}%` }}
+                                    ></div>
+                                </div>
+                                <div className="skill-level-text">{skill.level}%</div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
             </div>
         </section>

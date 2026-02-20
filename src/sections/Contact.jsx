@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 // ⬇️ PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHiQE-akh9TJebh45550b3JdnO2fQQB4Pw47aOAaa-a1um7p8NH4ss1QRWQHDoj1jx/exec'
 
 export default function Contact() {
     const sectionRef = useRef()
@@ -69,15 +69,16 @@ export default function Contact() {
         setError(false)
 
         try {
-            const form = new FormData()
-            form.append('name', formData.name)
-            form.append('email', formData.email)
-            form.append('message', formData.message)
+            const params = new URLSearchParams()
+            params.append('name', formData.name)
+            params.append('email', formData.email)
+            params.append('message', formData.message)
 
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: form,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString(),
             })
 
             // With no-cors the response is opaque, but if fetch didn't throw

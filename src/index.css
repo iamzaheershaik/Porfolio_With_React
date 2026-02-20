@@ -614,43 +614,26 @@ button {
    SKILLS SECTION
    ============================================ */
 
-.skills-categories {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  margin-top: 3rem;
-}
-
-.skills-category-title {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-glass);
-}
-
-.skills-category-icon {
-  font-size: 1.1rem;
-}
-
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
 }
 
 .skill-card {
-  padding: 0.75rem 1rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
   position: relative;
   overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
 }
 
 .skill-card::before {
@@ -658,86 +641,164 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--skill-accent, var(--accent-cyan));
+  right: 0;
+  height: 4px;
+  background: var(--skill-color, var(--gradient-primary));
   opacity: 0;
-  transition: var(--transition-base);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.skill-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.1), transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.skill-card:hover {
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 240, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-8px);
 }
 
 .skill-card:hover::before {
   opacity: 1;
+  box-shadow: 0 0 20px var(--skill-color, var(--gradient-primary));
 }
 
-.skill-icon {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
+.skill-card:hover::after {
+  opacity: 1;
+}
+
+.skill-icon-wrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-glass);
-  font-size: 1.1rem;
-  transition: var(--transition-base);
+}
+
+.skill-icon-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--skill-color, var(--gradient-primary));
+  border-radius: 16px;
+  opacity: 0.1;
+  z-index: -1;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.skill-card:hover .skill-icon-wrapper::before {
+  opacity: 0.2;
+  transform: scale(1.15);
+  filter: blur(8px);
+}
+
+.skill-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(147, 51, 234, 0.1));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  z-index: 1;
 }
 
 .skill-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 45px;
+  height: 45px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
 .skill-card:hover .skill-icon {
-  border-color: var(--skill-accent, var(--accent-cyan));
-  box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
+  transform: scale(1.1) rotate(-5deg);
+  border-color: var(--skill-color, var(--gradient-primary));
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(147, 51, 234, 0.15));
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
 }
 
-.skill-details {
-  flex: 1;
-  min-width: 0;
-}
-
-.skill-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.4rem;
+.skill-card:hover .skill-icon svg {
+  filter: drop-shadow(0 0 8px var(--skill-color, var(--gradient-primary)));
 }
 
 .skill-name {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.skill-card:hover .skill-name {
+  -webkit-text-fill-color: var(--text-primary);
+}
+
+.skill-category {
+  font-size: 0.75rem;
   font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  transition: color 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.skill-card:hover .skill-category {
+  color: var(--text-primary);
 }
 
 .skill-bar-track {
   width: 100%;
-  height: 4px;
+  height: 6px;
   background: var(--bg-tertiary);
-  border-radius: 2px;
+  border-radius: 3px;
   overflow: hidden;
+  margin-bottom: 0.75rem;
+  position: relative;
+  border: 1px solid var(--border-glass);
 }
 
 .skill-bar-fill {
   height: 100%;
-  border-radius: 2px;
+  background: var(--skill-color, var(--gradient-primary));
+  border-radius: 3px;
   width: 0%;
-  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
 
 .skill-bar-fill.animated {
   width: var(--skill-level);
+  box-shadow: 0 0 15px var(--skill-color, var(--gradient-primary));
 }
 
 .skill-level-text {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-weight: 500;
+  transition: color 0.4s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
-
+.skill-card:hover .skill-level-text {
+  color: var(--text-primary);
+}
 
 /* ============================================
    PROJECTS SECTION
@@ -1143,7 +1204,7 @@ button {
   }
 
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .hero-buttons {
