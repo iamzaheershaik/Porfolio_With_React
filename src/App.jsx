@@ -7,6 +7,7 @@ import About from './sections/About'
 import Skills from './sections/Skills'
 import GithubActivity from './sections/GithubActivity'
 import Contact from './sections/Contact'
+import Projects from './sections/Projects'
 import './App.css'
 
 function CursorGlow() {
@@ -44,6 +45,7 @@ function App() {
                 <Hero />
                 <About />
                 <Skills />
+                <Projects />
                 <GithubActivity />
 
                 <Contact />
