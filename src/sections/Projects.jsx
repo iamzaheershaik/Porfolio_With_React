@@ -93,47 +93,67 @@ export default function Projects() {
                 </p>
 
                 <div className="projects-grid" ref={gridRef}>
-                    {projects.map((project, i) => (
-                        <div
-                            key={i}
-                            className="project-card glass-card"
-                            onMouseMove={(e) => handleTilt(e, e.currentTarget)}
-                            onMouseLeave={(e) => resetTilt(e.currentTarget)}
-                            style={{ transition: 'transform 0.15s ease' }}
-                        >
-                            <div className="project-image" style={{ background: project.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                                {project.image ? (
-                                    <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                ) : (
-                                    <div className="project-image-placeholder">
-                                        {project.emoji || '🚀'}
-                                    </div>
-                                )}
-                                <div className="project-overlay">
-                                    {project.link ? (
-                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-overlay-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
-                                            View Project
-                                        </a>
+                    {projects.map((project, i) => {
+                        const isClickable = !!project.link;
+                        
+                        const CardInner = (
+                            <>
+                                <div className="project-image" style={{ background: project.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                    {project.image ? (
+                                        <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     ) : (
-                                        <span className="project-overlay-btn">View Details</span>
+                                        <div className="project-image-placeholder">
+                                            {project.emoji || '🚀'}
+                                        </div>
                                     )}
-                                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-overlay-btn" style={{ background: 'var(--accent-violet)', textDecoration: 'none', color: 'inherit' }}>
-                                        Live Demo
-                                    </a>
+                                    <div className="project-overlay">
+                                        <span className="project-overlay-btn" style={{ background: 'var(--accent-violet)' }}>
+                                            {isClickable ? 'Open Website' : 'Details'}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="project-info">
-                                <h3 className="project-title">{project.title}</h3>
-                                <p className="project-description">{project.description}</p>
-                                <div className="project-tags">
-                                    {project.tags.map(tag => (
-                                        <span key={tag} className="project-tag">{tag}</span>
-                                    ))}
+                                <div className="project-info">
+                                    <h3 className="project-title">{project.title}</h3>
+                                    <p className="project-description">{project.description}</p>
+                                    <div className="project-tags">
+                                        {project.tags.map(tag => (
+                                            <span key={tag} className="project-tag">{tag}</span>
+                                        ))}
+                                    </div>
                                 </div>
+                            </>
+                        );
+
+                        if (isClickable) {
+                            return (
+                                <a
+                                    key={i}
+                                    href={project.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="project-card glass-card"
+                                    onMouseMove={(e) => handleTilt(e, e.currentTarget)}
+                                    onMouseLeave={(e) => resetTilt(e.currentTarget)}
+                                    style={{ transition: 'transform 0.15s ease', textDecoration: 'none', color: 'inherit', display: 'block' }}
+                                >
+                                    {CardInner}
+                                </a>
+                            );
+                        }
+
+                        return (
+                            <div
+                                key={i}
+                                className="project-card glass-card"
+                                onMouseMove={(e) => handleTilt(e, e.currentTarget)}
+                                onMouseLeave={(e) => resetTilt(e.currentTarget)}
+                                style={{ transition: 'transform 0.15s ease' }}
+                            >
+                                {CardInner}
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>
