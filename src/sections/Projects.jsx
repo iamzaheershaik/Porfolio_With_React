@@ -6,32 +6,28 @@ gsap.registerPlugin(ScrollTrigger)
 
 const projects = [
     {
-        title: 'E-Commerce Dashboard',
-        description: 'A modern, responsive admin dashboard for e-commerce platforms with real-time data visualization and interactive charts.',
-        tags: ['React', 'JavaScript', 'CSS3'],
-        emoji: '🛒',
-        gradient: 'linear-gradient(135deg, #00f0ff22, #8b5cf622)',
+        title: 'Crack The JS INTERVIEW',
+        description: 'A dedicated platform for rigorous JavaScript interview preparation via MCQs and output-based challenges. Built with pure HTML, CSS, and JS.',
+        tags: ['HTML5', 'CSS3', 'JavaScript'],
+        image: '/crack-js.png',
+        link: 'https://crack-the-js.vercel.app/',
+        gradient: 'linear-gradient(135deg, #f59e0b22, #d9770622)',
     },
     {
-        title: 'Weather App Pro',
-        description: 'Beautiful weather application with location-based forecasts, animated weather icons, and a sleek dark-mode interface.',
-        tags: ['JavaScript', 'HTML5', 'CSS3'],
-        emoji: '🌤️',
-        gradient: 'linear-gradient(135deg, #f9731622, #ec489922)',
+        title: 'Udemy Clone',
+        description: 'A comprehensive Udemy-inspired e-learning platform cloning core course discovery and authentication flows.',
+        tags: ['React', 'Redux', 'Firebase', 'Firestore'],
+        image: '/udemy-clone.png',
+        link: 'https://udemy-cloned.web.app',
+        gradient: 'linear-gradient(135deg, #a855f722, #9333ea22)',
     },
     {
-        title: 'Portfolio Generator',
-        description: 'A drag-and-drop portfolio builder that lets developers create stunning portfolios with customizable themes and layouts.',
-        tags: ['React', 'Bootstrap', 'JavaScript'],
-        emoji: '🎨',
-        gradient: 'linear-gradient(135deg, #8b5cf622, #ec489922)',
-    },
-    {
-        title: 'Task Management App',
-        description: 'Full-featured task management application with Kanban boards, real-time collaboration, and responsive design for all devices.',
-        tags: ['React', 'CSS3', 'JavaScript'],
-        emoji: '📋',
-        gradient: 'linear-gradient(135deg, #22c55e22, #00f0ff22)',
+        title: 'Role-Based Admin Panel',
+        description: 'Secure Admin Dashboard with strict role-based access control. Backend developed dynamically with Node.js and Express.',
+        tags: ['Node.js', 'Express.js', 'React'],
+        image: '/admin-panel.png',
+        link: 'https://admin-panel-omega-gold.vercel.app/',
+        gradient: 'linear-gradient(135deg, #3b82f622, #2563eb22)',
     },
 ]
 
@@ -105,15 +101,25 @@ export default function Projects() {
                             onMouseLeave={(e) => resetTilt(e.currentTarget)}
                             style={{ transition: 'transform 0.15s ease' }}
                         >
-                            <div className="project-image" style={{ background: project.gradient }}>
-                                <div className="project-image-placeholder">
-                                    {project.emoji}
-                                </div>
+                            <div className="project-image" style={{ background: project.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                {project.image ? (
+                                    <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                ) : (
+                                    <div className="project-image-placeholder">
+                                        {project.emoji || '🚀'}
+                                    </div>
+                                )}
                                 <div className="project-overlay">
-                                    <span className="project-overlay-btn">View Details</span>
-                                    <span className="project-overlay-btn" style={{ background: 'var(--accent-violet)' }}>
-                                        Source Code
-                                    </span>
+                                    {project.link ? (
+                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-overlay-btn" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            View Project
+                                        </a>
+                                    ) : (
+                                        <span className="project-overlay-btn">View Details</span>
+                                    )}
+                                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-overlay-btn" style={{ background: 'var(--accent-violet)', textDecoration: 'none', color: 'inherit' }}>
+                                        Live Demo
+                                    </a>
                                 </div>
                             </div>
 
