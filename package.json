@@ -30,6 +30,7 @@
     "leva": "^0.10.1",
     "react-github-calendar": "^5.0.5",
     "react-tooltip": "^5.30.0",
+    "simple-icons": "^16.16.0",
     "three": "^0.182.0"
   }
 }

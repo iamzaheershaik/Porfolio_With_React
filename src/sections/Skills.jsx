@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
     ReactIcon, JavaScriptIcon, HTML5Icon, CSS3Icon, BootstrapIcon,
-    NodeIcon, ExpressIcon, MongoDBIcon,
+    NodeIcon, ExpressIcon, MongoDBIcon, PostmanIcon, CplusplusIcon,
     GitIcon, GitHubIcon, LinuxIcon, VSCodeIcon,
 } from '../components/Icons'
 
@@ -26,6 +26,8 @@ const skillCategories = [
             { name: 'Node.js', Icon: NodeIcon, color: '#339933' },
             { name: 'Express.js', Icon: ExpressIcon, color: '#888888' },
             { name: 'MongoDB', Icon: MongoDBIcon, color: '#47a248' },
+            { name: 'Postman', Icon: PostmanIcon, color: '#FF6C37' },
+            { name: 'C++', Icon: CplusplusIcon, color: '#00599C' },
         ]
     },
     {
